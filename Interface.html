@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Documentation - Button</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logopnt.png" alt="Votre Logo">
+        </div>
+        <h1>Interface</h1>
+    </header>
+    <div class="container">
+        <nav id="sidebar">
+            <ul>
+                <li><!-- Bouton de retour vers la page d'index -->
+                    <a href="index.html" class="back-button">Retour à l'index</a>
+                </li>
+            </ul>
+            <ul>
+                <li><a href="page1.html">Idéé jeux</a>
+                    <ul>
+                        <li><a href="page1.html#sub-section1-1">Sous-section 1.1</a></li>
+                        <li><a href="page1.html#sub-section1-2">Sous-section 1.2</a></li>
+                    </ul>
+                </li>
+                <li><a href="page2.html">Documentation godot GD</a>
+                    <ul>
+                        <!--lien sous section -->
+                        <li><a href="Interface.html">Doc Interface</a></li>
+                        <li><a href="Perso.html"></a>Personnage</li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="content-wrapper">
+            <main>
+                <h2># Interface</h2>
+                <!-- Contenu principal de la page 1 -->
+                <section id="sub-section1-1">
+                    <h3># Code BUTTON changement de scènes Interface</h3>
+                    <div class="code-block">
+                        <pre><code>
+extends Button
+
+func _pressed() -> void:
+	get_tree().change_scene_to_file(#Chemin du dossier)
+
+func  _ready() -> void:
+	pass
+                        </code></pre>
+                    </div>
+                </section>
+                <!------------------------------------------->
+                <section id="sub-section1-2">
+                    <h3># Code BUTTON Quitter</h3>
+                    <p>- Faire une connection avec le noeud on_pressed (ps: tu peux changer le nom  _on_Buttont_button_up pour l'accorder avec le nom que tu vas donner au noeud) </p>
+                    <div class="code-block">
+                        <pre><code>
+extends Button
+
+func _on_Buttont_button_up():
+    get_tree().quit() 
+                        </code></pre>
+                    </div>
+                </section>
+                <!------------------------------------------->
+                <section id="sub-section1-3">
+                    <h3># Code CheckBUTTON Fullscreen</h3>
+                    <div class="code-block">
+                        <pre><code>
+extends CheckButton
+
+func _on_toggled(button_pressed:bool):
+    if button_pressed == true:
+        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+    else:
+        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+                        </code></pre>
+                    </div>
+                </section>
+                <!------------------------------------------->
+                <section id="sub-section1-3">
+                    <h3># Code Option Button dans un HBoxContainer</h3>
+                    <p>Parametre du projet -> Mode -> viewport et Aspect -> keep</p>
+                    <div class="code-block">
+                        <pre><code>
+extends Control
+
+var Options: Dictionary
+@onready var ResOptionButton = get_node("OptionButton")
+                            
+var resolutions : Dictionary = {"3840x2160":Vector2(3840,2160),
+                                "2560x1440":Vector2(2560,1440),
+                                "1920x1080":Vector2(1920,1080),
+                                "1600x900":Vector2(1600,900),
+                                "1366x768":Vector2(1366,768),
+                                "1280x720":Vector2(1280,720)}
+                            
+func _ready():
+    for res in resolutions:
+        ResOptionButton.add_item(res)
+    ResOptionButton.select(2)
+
+func _on_option_button_item_selected(index):
+    var res = resolutions[ResOptionButton.get_item_text(index)]
+    get_tree().root.size = res
+    DisplayServer.window_set_size(res)
+                        </code></pre>
+                    </div>
+                </section>
+                <!------------------------------------------->
+                <section id="sub-section1-4">
+                    <h3># Code Transition mais bug</h3>
+                    <a href="https://www.youtube.com/watch?v=yZQStB6nHuI&ab_channel=TheShaggyDev" target="_blank">code en GD</a>
+                    <div class="code-block">
+                        <pre><code>
+extends CanvasLayer
+
+func change_scene_to_file(_target):
+    $AnimationPlayer.play("dissolve")
+    await $AnimationPlayer.animation_finished
+    get_tree().change_scene_to_file(_target)
+    $AnimationPlayer.play_backwards("dissolve")
+
+                        </code></pre>
+                    </div>
+                </section>
+                <!------------------------------------------->
+            </main>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

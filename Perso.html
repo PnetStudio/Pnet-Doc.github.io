@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Documentation - Button</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logopnt.png" alt="Votre Logo">
+        </div>
+        <h1>Interface</h1>
+    </header>
+    <div class="container">
+        <nav id="sidebar">
+            <ul>
+                <li><!-- Bouton de retour vers la page d'index -->
+                    <a href="index.html" class="back-button">Retour à l'index</a>
+                </li>
+            </ul>
+            <ul>
+                <li><a href="page1.html">Idéé jeux</a>
+                    <ul>
+                        <li><a href="page1.html#sub-section1-1">Sous-section 1.1</a></li>
+                        <li><a href="page1.html#sub-section1-2">Sous-section 1.2</a></li>
+                    </ul>
+                </li>
+                <li><a href="page2.html">Documentation godot GD</a>
+                    <ul>
+                        <!--lien sous section -->
+                        <li><a href="Interface.html">Doc Interface</a></li>
+                        <li><a href="Perso.html"></a>Personnage</li>
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="content-wrapper">
+            <main>
+                <h2># Personnage</h2>
+                <!-- Contenu principal de la page 1 -->
+                <section id="sub-section1-1">
+                    <h3># Code lance l'annimation</h3>
+                    <div class="code-block">
+                        <pre><code>
+extends AnimatedSprite2D
+
+func _process(delta):
+    play("Idole");
+                        </code></pre>
+                    </div>
+                </section>
+                <!------------------------------------------->
+
+            </main>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
