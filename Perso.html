@@ -56,45 +56,59 @@ func _process(delta):
                     <h3># Déplacement gauche droit saut gravité</h3>
                     <div class="code-block">
                         <pre><code>
-    extends CharacterBody2D
+extends CharacterBody2D
 
-    # Paramètres du personnage
-    var speed = 200
-    var jump_force = -400
-    var gravity = 1200
+# Paramètres du personnage
+var speed = 200
+var jump_force = -400
+var gravity = 1200
                             
-    func _physics_process(delta):
-        # Mouvement horizontal
-        var moving = false
-        if Input.is_action_pressed('ui_right'):
-            velocity.x = speed
-            $AnimatedSprite2D.play("walking")
-            $AnimatedSprite2D.flip_h = false
-            moving = true
-        elif Input.is_action_pressed('ui_left'):
-            velocity.x = -speed
-            $AnimatedSprite2D.play("walking")
-            $AnimatedSprite2D.flip_h = true
-            moving = true
-        else:
-            if velocity.x != 0:
-                velocity.x = 0
+func _physics_process(delta):
+    # Mouvement horizontal
+    var moving = false
+    if Input.is_action_pressed('ui_right'):
+        velocity.x = speed
+        $AnimatedSprite2D.play("walking")
+        $AnimatedSprite2D.flip_h = false
+        moving = true
+    elif Input.is_action_pressed('ui_left'):
+        velocity.x = -speed
+        $AnimatedSprite2D.play("walking")
+        $AnimatedSprite2D.flip_h = true
+        moving = true
+    else:
+        if velocity.x != 0:
+            velocity.x = 0
                             
-        # Mettre à jour l'état de l'animation
-        if not moving and is_on_floor():
-            $AnimatedSprite2D.play("Idle")
+    # Mettre à jour l'état de l'animation
+    if not moving and is_on_floor():
+        $AnimatedSprite2D.play("Idle")
                             
-        # Saut
-        if is_on_floor() and Input.is_action_just_pressed('ui_up'):
-            velocity.y = jump_force
+    # Saut
+    if is_on_floor() and Input.is_action_just_pressed('ui_up'):
+        velocity.y = jump_force
                             
-        # Appliquer la gravité
-        if not is_on_floor():
-            velocity.y += gravity * delta
+    # Appliquer la gravité
+    if not is_on_floor():
+        velocity.y += gravity * delta
                             
-        # Définir la vitesse et appliquer le mouvement
-        set_velocity(velocity)
-        move_and_slide()
+    # Définir la vitesse et appliquer le mouvement
+    set_velocity(velocity)
+    move_and_slide()
+                        </code></pre>
+                    </div>
+                </section>
+                <h2># Personnage</h2>
+                <!-- Contenu principal de la page 1 -->
+                <section id="sub-section1-3">
+                    <h3># RayCast2D Detection contacte avec le sol</h3>
+                    <div class="code-block">
+                        <pre><code>
+@onready var ground_ray = $RayCast2D
+
+func is_on_ground() -> bool:
+return ground_ray.is_colliding() or is_on_floor()
+
                         </code></pre>
                     </div>
                 </section>
